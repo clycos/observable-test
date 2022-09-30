@@ -28,6 +28,7 @@ export class TableDataComponent implements OnInit {
   // remove dups - https://www.javascripttutorial.net/array/javascript-remove-duplicates-from-array/
 
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+  // http://blog.jeremyfairbank.com/javascript/javascript-es7-function-bind-syntax/
 
   getColleges(): void {
     this.colleges$ = this.tableDataService.getColleges();
