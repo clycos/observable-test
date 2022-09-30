@@ -11,6 +11,7 @@ import { Observable, map } from 'rxjs';
 export class TableDataComponent implements OnInit {
   colleges$!: Observable<College[]>;
   collegesSorted$!: Observable<Array<College>>;
+  selectedRowIndex: number = -1;
 
   constructor(private tableDataService: TableDataService) {}
 
@@ -42,6 +43,11 @@ export class TableDataComponent implements OnInit {
           )
         )
       );
+  }
+
+  gotClicked(event: any): void {
+    // console.log(event.name);
+    this.selectedRowIndex = event;
   }
 
   sortTable(): void {
