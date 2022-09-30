@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { TableDataService } from './table-data.service';
 import { College } from './table-data';
 import { Observable, map } from 'rxjs';
-import { orderByPipe } from './order-by.pipe';
 
 @Component({
   selector: 'app-table-data',
