@@ -12,9 +12,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of colleges$ | async">
-      <!-- <tr *ngFor="let item of colleges$ | async | orderByPipe: 'name'"> -->
-      <!-- <tr *ngFor="let item of collegesSorted$ | async"> -->
+    <!-- <tr *ngFor="let item of colleges$ | async"> -->
+    <!-- <tr *ngFor="let item of colleges$ | async | orderByPipe: 'name'"> -->
+    <tr *ngFor="let item of collegesSorted$ | async">
       <td>{{ item.name }}</td>
       <td>{{ item.web_pages[0] }}</td>
     </tr>

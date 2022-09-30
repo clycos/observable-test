@@ -25,11 +25,19 @@ export class TableDataComponent implements OnInit {
     return x;
   }
 
+  // remove dups - https://www.javascripttutorial.net/array/javascript-remove-duplicates-from-array/
+
   getColleges(): void {
     this.colleges$ = this.tableDataService.getColleges();
     this.collegesSorted$ = this.tableDataService
       .getColleges()
-      .pipe(map((colleges) => colleges.sort(this.sortBy)));
+      .pipe(
+        map((colleges) =>
+          [...new Map(colleges.map((m) => [m.name, m])).values()].sort(
+            this.sortBy
+          )
+        )
+      );
   }
 
   sortTable(): void {
