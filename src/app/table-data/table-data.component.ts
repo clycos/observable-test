@@ -28,27 +28,9 @@ export class TableDataComponent implements OnInit {
 
   getColleges(): void {
     this.colleges$ = this.tableDataService.getColleges();
-
-    //https://stackoverflow.com/questions/41224749/angular-2-sort-list-from-observable
-    this.tableDataService
+    this.collegesSorted$ = this.tableDataService
       .getColleges()
-      .pipe(
-        map((colleges$) =>
-          colleges$.filter((college) => college.name === 'Aegean University')
-        )
-      )
-      .subscribe((res) => console.log('Dude', res));
-
-    this.collegesSorted$ = this.tableDataService.getColleges().pipe(
-      map((name) => {
-        name.sort((a, b) => {
-          return a < b ? -1 : 1;
-        });
-        return name;
-      })
-    );
-
-    // this.tableDataService.getColleges2().subscribe((res) => console.log(res));
+      .pipe(map((colleges) => colleges.sort(this.sortBy)));
   }
 
   sortTable(): void {

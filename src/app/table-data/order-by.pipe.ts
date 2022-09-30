@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+// however - https://angular.io/guide/pipes#appendix-no-filterpipe-or-orderbypipe
 @Pipe({
   name: 'orderByPipe',
 })
