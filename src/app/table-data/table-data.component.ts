@@ -10,7 +10,6 @@ import { Observable, map } from 'rxjs';
 })
 export class TableDataComponent implements OnInit {
   colleges$!: Observable<College[]>;
-  collegesSorted$!: Observable<Array<College>>;
   selectedRowIndex: number = -1;
 
   constructor(private tableDataService: TableDataService) {}
@@ -32,9 +31,25 @@ export class TableDataComponent implements OnInit {
   // http://blog.jeremyfairbank.com/javascript/javascript-es7-function-bind-syntax/
 
   getColleges(): void {
-    this.colleges$ = this.tableDataService.getColleges();
+    // unmodified API
+    // this.colleges$ = this.tableDataService.getColleges();
 
-    this.collegesSorted$ = this.tableDataService
+    // order by(use JS), allow dups
+    // this.colleges$ = this.tableDataService
+    //   .getColleges()
+    //   .pipe(map((colleges) => colleges.sort(this.sortBy)));
+
+    // order by(use JS) no dups(use orderByPipe)
+    // this.colleges$ = this.tableDataService
+    //   .getColleges()
+    //   .pipe(
+    //     map((colleges) => [
+    //       ...new Map(colleges.map((m) => [m.name, m])).values(),
+    //     ])
+    //   );
+
+    // order by(use JS) no dups(use JS)
+    this.colleges$ = this.tableDataService
       .getColleges()
       .pipe(
         map((colleges) =>
@@ -45,8 +60,8 @@ export class TableDataComponent implements OnInit {
       );
   }
 
-  gotClicked(event: any): void {
-    // console.log(event.name);
+  gotClicked(event: any, item: any): void {
+    console.log(item.name);
     this.selectedRowIndex = event;
   }
 
@@ -61,7 +76,7 @@ export class TableDataComponent implements OnInit {
         shouldSwitch = false;
         x = rows[i].getElementsByTagName('TD')[0];
 
-        y = rows[i + 1].getElementsByTagName('td')[0];
+        y = rows[i + 1].getElementsByTagName('TD')[0];
         if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
           shouldSwitch = true;
           break;

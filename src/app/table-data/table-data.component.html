@@ -15,8 +15,8 @@
     <!-- <tr *ngFor="let item of colleges$ | async"> -->
     <!-- <tr *ngFor="let item of colleges$ | async | orderByPipe: 'name'"> -->
     <tr
-      *ngFor="let item of collegesSorted$ | async; let index = index"
-      (click)="gotClicked(index)"
+      *ngFor="let item of colleges$ | async; let index = index"
+      (click)="gotClicked(index, item)"
       [ngClass]="{ highlight: selectedRowIndex == index }"
     >
       <td>

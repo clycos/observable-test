@@ -9,7 +9,7 @@ import { College } from './table-data';
 export class TableDataService {
   // endpoint obtained from https://apipheny.io/free-api/
 
-  endpoint = 'http://universities.hipolabs.com/search?country=Greece';
+  endpoint = 'http://universities.hipolabs.com/search?country=United+States';
   constructor(private http: HttpClient) {}
 
   getColleges(): Observable<College[]> {
