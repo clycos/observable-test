@@ -6,21 +6,27 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './shared/header/header.component';
-import { TableDataComponent } from './table-data/table-data.component';
-import { orderByPipe } from './table-data/order-by.pipe';
+import { orderByPipe } from './shared/order-by.pipe';
+import { CountryListComponent } from './schools/country-list/country-list.component';
+import { SchoolListComponent } from './schools/school-list/school-list.component';
+import { SchoolsComponent } from './schools/schools.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    TableDataComponent,
     orderByPipe,
+    CountryListComponent,
+    SchoolListComponent,
+    SchoolsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

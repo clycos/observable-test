@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { TableDataService } from './table-data.service';
-import { College } from './table-data';
+import { SchoolDataService } from './school-data.service';
+import { School } from './school-list';
 import { Observable, map } from 'rxjs';
 
 @Component({
-  selector: 'app-table-data',
-  templateUrl: './table-data.component.html',
-  styleUrls: ['./table-data.component.css'],
+  selector: 'app-school-list',
+  templateUrl: './school-list.component.html',
+  styleUrls: ['./school-list.component.css'],
 })
-export class TableDataComponent implements OnInit {
-  colleges$!: Observable<College[]>;
+export class SchoolListComponent implements OnInit {
+  colleges$!: Observable<School[]>;
   selectedRowIndex: number = -1;
 
-  constructor(private tableDataService: TableDataService) {}
+  constructor(private schoolDataService: SchoolDataService) {}
 
   ngOnInit(): void {
     this.getColleges();
   }
 
-  sortBy(a: College, b: College): number {
+  sortBy(a: School, b: School): number {
     let x: number = 0;
     if (a.name < b.name) x = -1;
     if (a.name > b.name) x = 1;
@@ -32,15 +32,15 @@ export class TableDataComponent implements OnInit {
 
   getColleges(): void {
     // unmodified API
-    // this.colleges$ = this.tableDataService.getColleges();
+    // this.colleges$ = this.schoolDataService.getColleges();
 
     // order by(use JS), allow dups
-    // this.colleges$ = this.tableDataService
+    // this.colleges$ = this.schoolDataService
     //   .getColleges()
     //   .pipe(map((colleges) => colleges.sort(this.sortBy)));
 
     // order by(use JS) no dups(use orderByPipe)
-    // this.colleges$ = this.tableDataService
+    // this.colleges$ = this.schoolDataService
     //   .getColleges()
     //   .pipe(
     //     map((colleges) => [
@@ -49,7 +49,7 @@ export class TableDataComponent implements OnInit {
     //   );
 
     // order by(use JS) no dups(use JS)
-    this.colleges$ = this.tableDataService
+    this.colleges$ = this.schoolDataService
       .getColleges()
       .pipe(
         map((colleges) =>
@@ -66,6 +66,8 @@ export class TableDataComponent implements OnInit {
   }
 
   sortTable(): void {
+    console.log('got clicked');
+
     var table, rows, switching, i, x, y, shouldSwitch;
     table = document.getElementById('myTable') as HTMLTableElement;
     switching = true;

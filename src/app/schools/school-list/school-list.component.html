@@ -7,7 +7,9 @@
   </caption>
   <thead class="table-info">
     <tr>
-      <th scope="col" (click)="sortTable()">College</th>
+      <th scope="col" (click)="sortTable()">
+        College<i class="bi bi-sort-alpha-down-alt"></i>
+      </th>
       <th scope="col">Website</th>
     </tr>
   </thead>
@@ -22,7 +24,11 @@
       <td>
         {{ item.name }}
       </td>
-      <td>{{ item.web_pages[0] }}</td>
+      <td>
+        <a href="{{ item.web_pages[0] }}" target="_blank">{{
+          item.web_pages[0]
+        }}</a>
+      </td>
     </tr>
   </tbody>
 </table>

@@ -1,0 +1,14 @@
+<table class="table table-striped table-bordered table-hover table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of countries">
+      <td>
+        {{ item.name }}
+      </td>
+    </tr>
+  </tbody>
+</table>

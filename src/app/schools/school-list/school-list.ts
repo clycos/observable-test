@@ -1,4 +1,4 @@
-export interface College {
+export interface School {
   name: string;
   alpha_two_code: string;
   state_province: string;
