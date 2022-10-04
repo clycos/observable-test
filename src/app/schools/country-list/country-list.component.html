@@ -1,13 +1,17 @@
 <table class="table table-striped table-bordered table-hover table-sm">
-  <thead>
+  <thead class="table-primary">
     <tr>
       <th scope="col">Country</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of countries">
+    <tr
+      *ngFor="let item of countries; let index = index"
+      (click)="gotClicked(index, item)"
+      [ngClass]="{ 'table-success': selectedRowIndex === index }"
+    >
       <td>
-        {{ item.name }}
+        {{ item.display }}
       </td>
     </tr>
   </tbody>

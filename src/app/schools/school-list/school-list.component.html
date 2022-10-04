@@ -1,15 +1,16 @@
 <table
   id="myTable"
-  class="table table-striped table-bordered table-hover table-sm"
+  class="table table-striped table-bordered table-hover"
+  [ngClass]="{ 'table-sm': tableSmall === true }"
 >
-  <thead class="table-info">
+  <thead class="table-primary">
     <tr>
       <th class="college-header" scope="col" (click)="sortTable()">
         College
         <i *ngIf="sortRow" class="bi bi-sort-alpha-down"></i>
         <i *ngIf="!sortRow" class="bi bi-sort-alpha-up"></i>
       </th>
-      <th class="college-header" scope="col">Website</th>
+      <th scope="col">Website</th>
     </tr>
   </thead>
   <tbody>
@@ -18,7 +19,7 @@
     <tr
       *ngFor="let item of colleges$ | async; let index = index"
       (click)="gotClicked(index, item)"
-      [ngClass]="{ highlight: selectedRowIndex == index }"
+      [ngClass]="{ 'table-success': selectedRowIndex === index }"
     >
       <td>
         {{ item.name }}
@@ -31,3 +32,6 @@
     </tr>
   </tbody>
 </table>
+<button type="button" class="btn btn-primary" (click)="setTableSmall()">
+  {{ tableSize }}
+</button>

@@ -11,7 +11,9 @@ import { Observable, map } from 'rxjs';
 export class SchoolListComponent implements OnInit {
   colleges$!: Observable<School[]>;
   selectedRowIndex: number = -1;
-  sortRow = true;
+  sortRow: boolean = true;
+  tableSmall: boolean = false;
+  tableSize: string = 'shrink';
 
   constructor(private schoolDataService: SchoolDataService) {}
 
@@ -26,6 +28,13 @@ export class SchoolListComponent implements OnInit {
     return x;
   }
 
+  setTableSmall(): void {
+    this.tableSmall = !this.tableSmall;
+    this.tableSize =
+      this.tableSize === 'enlarge'
+        ? (this.tableSize = 'shrink')
+        : (this.tableSize = 'enlarge');
+  }
   // remove dups - https://www.javascripttutorial.net/array/javascript-remove-duplicates-from-array/
 
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
