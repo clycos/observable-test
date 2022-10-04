@@ -11,6 +11,7 @@ import { Observable, map } from 'rxjs';
 export class SchoolListComponent implements OnInit {
   colleges$!: Observable<School[]>;
   selectedRowIndex: number = -1;
+  sortRow = true;
 
   constructor(private schoolDataService: SchoolDataService) {}
 
@@ -66,20 +67,19 @@ export class SchoolListComponent implements OnInit {
   }
 
   sortTable(): void {
-    console.log('got clicked');
-
     var table, rows, switching, i, x, y, shouldSwitch;
     table = document.getElementById('myTable') as HTMLTableElement;
     switching = true;
     while (switching) {
       switching = false;
       rows = table.rows;
+
       for (i = 1; i < rows.length - 1; i++) {
         shouldSwitch = false;
-        x = rows[i].getElementsByTagName('TD')[0];
+        x = rows[i].getElementsByTagName('TD')[0].innerHTML.toLowerCase();
+        y = rows[i + 1].getElementsByTagName('TD')[0].innerHTML.toLowerCase();
 
-        y = rows[i + 1].getElementsByTagName('TD')[0];
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        if ((this.sortRow && x < y) || (!this.sortRow && x > y)) {
           shouldSwitch = true;
           break;
         }
@@ -89,5 +89,6 @@ export class SchoolListComponent implements OnInit {
         switching = true;
       }
     }
+    this.sortRow = !this.sortRow;
   }
 }
