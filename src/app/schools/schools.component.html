@@ -3,6 +3,6 @@
     <app-country-list (country)="getCountry($event)"></app-country-list>
   </div>
   <div class="col">
-    <app-school-list></app-school-list>
+    <app-school-list [country]="country"></app-school-list>
   </div>
 </div>

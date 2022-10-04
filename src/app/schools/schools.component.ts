@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Country } from './country-list/country';
 
 @Component({
@@ -6,14 +6,11 @@ import { Country } from './country-list/country';
   templateUrl: './schools.component.html',
   styleUrls: ['./schools.component.css'],
 })
-export class SchoolsComponent implements OnInit {
-  country?: Country;
+export class SchoolsComponent {
+  country!: Country;
   constructor() {}
-
-  ngOnInit(): void {}
 
   getCountry(country: Country): void {
     this.country = country;
-    console.log(this.country);
   }
 }

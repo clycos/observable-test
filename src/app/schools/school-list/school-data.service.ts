@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, EMPTY } from 'rxjs';
 import { School } from './school-list';
+import { Country } from '../country-list/country';
 
 @Injectable({
   providedIn: 'root',
@@ -9,11 +10,16 @@ import { School } from './school-list';
 export class SchoolDataService {
   // endpoint obtained from https://apipheny.io/free-api/
 
-  endpoint =
-    'http://universities.hipolabs.com/search?country=United+States&name=michigan';
   constructor(private http: HttpClient) {}
 
-  getColleges(): Observable<School[]> {
-    return <Observable<School[]>>this.http.get(this.endpoint);
+  getColleges(country: Country): Observable<School[]> {
+    let endpoint = 'http://universities.hipolabs.com/search?country=';
+    if (country) {
+      endpoint += country.name;
+      console.log('endpoint', endpoint);
+      return <Observable<School[]>>this.http.get(endpoint);
+    }
+
+    return EMPTY;
   }
 }

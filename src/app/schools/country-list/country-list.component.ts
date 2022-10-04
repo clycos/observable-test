@@ -14,7 +14,7 @@ export class CountryListComponent implements OnInit {
 
   countries: Country[] = [
     { name: 'united+states', display: 'United States' },
-    { name: 'korea', display: 'Korea' },
+    { name: 'france', display: 'France' },
     { name: 'greece', display: 'Greece' },
   ];
 

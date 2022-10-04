@@ -1,14 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnChanges,
+  Input,
+  SimpleChanges,
+} from '@angular/core';
 import { SchoolDataService } from './school-data.service';
 import { School } from './school-list';
 import { Observable, map } from 'rxjs';
+import { Country } from '../country-list/country';
 
 @Component({
   selector: 'app-school-list',
   templateUrl: './school-list.component.html',
   styleUrls: ['./school-list.component.css'],
 })
-export class SchoolListComponent implements OnInit {
+export class SchoolListComponent implements OnInit, OnChanges {
+  @Input() country!: Country;
+
   colleges$!: Observable<School[]>;
   selectedRowIndex: number = -1;
   sortRow: boolean = true;
@@ -18,6 +27,10 @@ export class SchoolListComponent implements OnInit {
   constructor(private schoolDataService: SchoolDataService) {}
 
   ngOnInit(): void {
+    this.getColleges();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.getColleges();
   }
 
@@ -41,6 +54,8 @@ export class SchoolListComponent implements OnInit {
   // http://blog.jeremyfairbank.com/javascript/javascript-es7-function-bind-syntax/
 
   getColleges(): void {
+    console.log('z3', this.country);
+
     // unmodified API
     // this.colleges$ = this.schoolDataService.getColleges();
 
@@ -60,7 +75,7 @@ export class SchoolListComponent implements OnInit {
 
     // order by(use JS) no dups(use JS)
     this.colleges$ = this.schoolDataService
-      .getColleges()
+      .getColleges(this.country)
       .pipe(
         map((colleges) =>
           [...new Map(colleges.map((m) => [m.name, m])).values()].sort(
@@ -71,7 +86,6 @@ export class SchoolListComponent implements OnInit {
   }
 
   gotClicked(event: any, item: any): void {
-    console.log(item.name);
     this.selectedRowIndex = event;
   }
 
