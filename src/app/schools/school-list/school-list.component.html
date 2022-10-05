@@ -5,12 +5,12 @@
 >
   <thead class="table-primary">
     <tr>
-      <th class="college-header" scope="col" (click)="sortTable()">
+      <th class="college-header" scope="col" (click)="sortTable2($event)">
         College
         <i *ngIf="sortRow" class="bi bi-sort-alpha-down"></i>
         <i *ngIf="!sortRow" class="bi bi-sort-alpha-up"></i>
       </th>
-      <th scope="col">Website</th>
+      <th scope="col" (click)="sortTable2($event)">Website</th>
     </tr>
   </thead>
   <tbody>

@@ -16,7 +16,7 @@ export class SchoolDataService {
     let endpoint = 'http://universities.hipolabs.com/search?country=';
     if (country) {
       endpoint += country.name;
-      console.log('endpoint', endpoint);
+      // console.log('endpoint', endpoint);
       return <Observable<School[]>>this.http.get(endpoint);
     }
 
