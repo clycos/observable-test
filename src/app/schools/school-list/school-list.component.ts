@@ -54,10 +54,8 @@ export class SchoolListComponent implements OnInit, OnChanges {
   // http://blog.jeremyfairbank.com/javascript/javascript-es7-function-bind-syntax/
 
   getColleges(): void {
-    console.log('z3', this.country);
-
     // unmodified API
-    // this.colleges$ = this.schoolDataService.getColleges();
+    this.colleges$ = this.schoolDataService.getColleges(this.country);
 
     // order by(use JS), allow dups
     // this.colleges$ = this.schoolDataService
@@ -74,15 +72,15 @@ export class SchoolListComponent implements OnInit, OnChanges {
     //   );
 
     // order by(use JS) no dups(use JS)
-    this.colleges$ = this.schoolDataService
-      .getColleges(this.country)
-      .pipe(
-        map((colleges) =>
-          [...new Map(colleges.map((m) => [m.name, m])).values()].sort(
-            this.sortBy
-          )
-        )
-      );
+    // this.colleges$ = this.schoolDataService
+    //   .getColleges(this.country)
+    //   .pipe(
+    //     map((colleges) =>
+    //       [...new Map(colleges.map((m) => [m.name, m])).values()].sort(
+    //         this.sortBy
+    //       )
+    //     )
+    //   );
   }
 
   gotClicked(event: any, item: any): void {
@@ -113,5 +111,37 @@ export class SchoolListComponent implements OnInit, OnChanges {
       }
     }
     this.sortRow = !this.sortRow;
+  }
+
+  sortTableRowsByColumn(
+    table: HTMLTableElement,
+    columnIndex: number,
+    ascending: boolean = true
+  ): void {
+    const rows = Array.from(table.querySelectorAll(':scope > tbody > tr'));
+
+    for (let row of rows) {
+      table.tBodies[0].appendChild(row);
+    }
+  }
+
+  sortTable2(ev: Event): void {
+    const th: HTMLTableCellElement = <HTMLTableCellElement>ev.currentTarget;
+
+    const table: any = th.closest('table');
+    console.log('table', table);
+
+    const thIndex: number = Array.from(th.parentElement!.children).indexOf(th);
+
+    const ascending = (th.dataset as any).sort != 'asc';
+
+    this.sortTableRowsByColumn(table, thIndex, true);
+
+    const allTh = table.querySelectorAll(':scope > thead > tr > th');
+    for (let th2 of allTh) {
+      delete th2.dataset['sort'];
+    }
+
+    th.dataset['sort'] = ascending ? 'asc' : 'desc';
   }
 }
