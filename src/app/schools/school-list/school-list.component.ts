@@ -20,7 +20,7 @@ export class SchoolListComponent implements OnInit, OnChanges {
 
   colleges$!: Observable<School[]>;
   selectedRowIndex: number = -1;
-  sortRow: boolean = true;
+  ascending: boolean = true;
   tableSmall: boolean = false;
   tableSize: string = 'shrink';
 
@@ -55,7 +55,7 @@ export class SchoolListComponent implements OnInit, OnChanges {
 
   getColleges(): void {
     // unmodified API
-    this.colleges$ = this.schoolDataService.getColleges(this.country);
+    // this.colleges$ = this.schoolDataService.getColleges(this.country);
 
     // order by(use JS), allow dups
     // this.colleges$ = this.schoolDataService
@@ -72,76 +72,65 @@ export class SchoolListComponent implements OnInit, OnChanges {
     //   );
 
     // order by(use JS) no dups(use JS)
-    // this.colleges$ = this.schoolDataService
-    //   .getColleges(this.country)
-    //   .pipe(
-    //     map((colleges) =>
-    //       [...new Map(colleges.map((m) => [m.name, m])).values()].sort(
-    //         this.sortBy
-    //       )
-    //     )
-    //   );
+    this.colleges$ = this.schoolDataService
+      .getColleges(this.country)
+      .pipe(
+        map((colleges) =>
+          [...new Map(colleges.map((m) => [m.name, m])).values()].sort(
+            this.sortBy
+          )
+        )
+      );
   }
 
   gotClicked(event: any, item: any): void {
     this.selectedRowIndex = event;
   }
 
-  sortTable(): void {
-    var table, rows, switching, i, x, y, shouldSwitch;
-    table = document.getElementById('myTable') as HTMLTableElement;
-    switching = true;
-    while (switching) {
-      switching = false;
-      rows = table.rows;
-
-      for (i = 1; i < rows.length - 1; i++) {
-        shouldSwitch = false;
-        x = rows[i].getElementsByTagName('TD')[0].innerHTML.toLowerCase();
-        y = rows[i + 1].getElementsByTagName('TD')[0].innerHTML.toLowerCase();
-
-        if ((this.sortRow && x < y) || (!this.sortRow && x > y)) {
-          shouldSwitch = true;
-          break;
-        }
-      }
-      if (shouldSwitch) {
-        rows[i].parentNode?.insertBefore(rows[i + 1], rows[i]);
-        switching = true;
-      }
-    }
-    this.sortRow = !this.sortRow;
-  }
-
   sortTableRowsByColumn(
     table: HTMLTableElement,
     columnIndex: number,
-    ascending: boolean = true
+    ascending: boolean
   ): void {
-    const rows = Array.from(table.querySelectorAll(':scope > tbody > tr'));
+    const rows: any = Array.from(table.querySelectorAll(':scope > tbody > tr'));
+
+    rows.sort(
+      (
+        x: { cells: { textContent: string }[] },
+        y: { cells: { textContent: string }[] }
+      ) => {
+        const xValue = x.cells[columnIndex].textContent.toLowerCase();
+        const yValue = y.cells[columnIndex].textContent.toLowerCase();
+
+        if (xValue < yValue || xValue > yValue) {
+          return -1;
+        }
+      }
+    );
 
     for (let row of rows) {
       table.tBodies[0].appendChild(row);
     }
   }
 
-  sortTable2(ev: Event): void {
-    const th: HTMLTableCellElement = <HTMLTableCellElement>ev.currentTarget;
+  sortTable(ev: Event): void {
+    const th: HTMLTableElement = <HTMLTableElement>ev.currentTarget;
+    console.log('th', th);
 
-    const table: any = th.closest('table');
-    console.log('table', table);
-
+    const table: HTMLTableElement = th.closest('table') as HTMLTableElement;
     const thIndex: number = Array.from(th.parentElement!.children).indexOf(th);
-
-    const ascending = (th.dataset as any).sort != 'asc';
+    const ascending: boolean = (th.dataset as DOMStringMap)['sort'] != 'asc';
 
     this.sortTableRowsByColumn(table, thIndex, true);
 
-    const allTh = table.querySelectorAll(':scope > thead > tr > th');
+    const allTh: NodeListOf<HTMLTableElement> = table.querySelectorAll(
+      ':scope > thead > tr > th'
+    );
     for (let th2 of allTh) {
       delete th2.dataset['sort'];
     }
 
     th.dataset['sort'] = ascending ? 'asc' : 'desc';
+    this.ascending = ascending;
   }
 }

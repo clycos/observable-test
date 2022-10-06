@@ -5,11 +5,3 @@
 table > thead > tr > th {
   cursor: pointer;
 }
-table > thead > tr > th[data-sort="asc"] {
-  background-color: blue;
-  color: white;
-}
-table > thead > tr > th[data-sort="desc"] {
-  background-color: red;
-  color: white;
-}
