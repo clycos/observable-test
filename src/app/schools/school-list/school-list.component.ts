@@ -2,10 +2,11 @@ import {
   Component,
   OnInit,
   OnChanges,
+  OnDestroy,
   Input,
   SimpleChanges,
 } from '@angular/core';
-import { SchoolDataService } from './school-data.service';
+import { SchoolListService } from './school-list.service';
 import { School } from './school-list';
 import { Observable, map } from 'rxjs';
 import { Country } from '../country-list/country';
@@ -15,7 +16,7 @@ import { Country } from '../country-list/country';
   templateUrl: './school-list.component.html',
   styleUrls: ['./school-list.component.css'],
 })
-export class SchoolListComponent implements OnInit, OnChanges {
+export class SchoolListComponent implements OnInit, OnChanges, OnDestroy {
   @Input() country!: Country;
 
   colleges$!: Observable<School[]>;
@@ -24,7 +25,7 @@ export class SchoolListComponent implements OnInit, OnChanges {
   tableSmall: boolean = false;
   tableSize: string = 'shrink';
 
-  constructor(private schoolDataService: SchoolDataService) {}
+  constructor(private schoolListService: SchoolListService) {}
 
   ngOnInit(): void {}
 
@@ -32,6 +33,10 @@ export class SchoolListComponent implements OnInit, OnChanges {
     this.showSort = 'asc';
     this.getColleges();
     this.selectedRowIndex = -1;
+  }
+
+  ngOnDestroy(): void {
+    this.schoolListService.getColleges(this.country);
   }
 
   sortBy(a: School, b: School): number {
@@ -54,7 +59,7 @@ export class SchoolListComponent implements OnInit, OnChanges {
   // http://blog.jeremyfairbank.com/javascript/javascript-es7-function-bind-syntax/
 
   getColleges(): void {
-    this.colleges$ = this.schoolDataService.getColleges(this.country).pipe(
+    this.colleges$ = this.schoolListService.getColleges(this.country).pipe(
       map((colleges) =>
         [...new Map(colleges.map((m) => [m.name, m])).values()]
           .slice(0, 15) //slicing to limit results for testing

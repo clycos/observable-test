@@ -7,7 +7,7 @@ import { Country } from '../country-list/country';
 @Injectable({
   providedIn: 'root',
 })
-export class SchoolDataService {
+export class SchoolListService {
   // endpoint obtained from https://apipheny.io/free-api/
 
   constructor(private http: HttpClient) {}

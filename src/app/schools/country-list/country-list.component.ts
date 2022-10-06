@@ -1,29 +1,40 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { Country } from './country';
+import { CountryListService } from './country-list.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-country-list',
   templateUrl: './country-list.component.html',
   styleUrls: ['./country-list.component.css'],
 })
-export class CountryListComponent implements OnInit {
+export class CountryListComponent implements OnInit, OnDestroy {
+  countries$!: Observable<Country[]>;
   selectedRowIndex: number = -1;
   @Output() country = new EventEmitter<Country>();
 
-  constructor() {}
+  constructor(private countryListService: CountryListService) {}
 
-  countries: Country[] = [
-    { name: 'brazil', display: 'Brazil' },
-    { name: 'canada', display: 'Canada' },
-    { name: 'france', display: 'France' },
-    { name: 'greece', display: 'Greece' },
-    { name: 'united+states', display: 'United States' },
-  ];
-
-  selectCountry(event: any, item: Country): void {
+  selectCountry(index: number, item: Country, event: Event): void {
     this.country.emit(item);
-    this.selectedRowIndex = event;
+    this.selectedRowIndex = index;
   }
 
-  ngOnInit(): void {}
+  getCountries(): void {
+    this.countries$ = this.countryListService.getCountries();
+  }
+
+  ngOnInit(): void {
+    this.getCountries();
+  }
+
+  ngOnDestroy(): void {
+    this.countryListService.getCountries();
+  }
 }

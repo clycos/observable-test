@@ -6,12 +6,15 @@
   </thead>
   <tbody>
     <tr
-      *ngFor="let item of countries; let index = index"
-      (click)="selectCountry(index, item)"
+      *ngFor="let country of countries$ | async; let index = index"
       [ngClass]="{ 'table-success': selectedRowIndex === index }"
     >
-      <td>
-        {{ item.display }}
+      <td
+        tabindex="0"
+        (click)="selectCountry(index, country, $event)"
+        (keyup.enter)="selectCountry(index, country, $event)"
+      >
+        {{ country.display }}
       </td>
     </tr>
   </tbody>
