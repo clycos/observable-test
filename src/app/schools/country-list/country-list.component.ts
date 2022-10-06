@@ -13,9 +13,11 @@ export class CountryListComponent implements OnInit {
   constructor() {}
 
   countries: Country[] = [
-    { name: 'united+states', display: 'United States' },
+    { name: 'brazil', display: 'Brazil' },
+    { name: 'canada', display: 'Canada' },
     { name: 'france', display: 'France' },
     { name: 'greece', display: 'Greece' },
+    { name: 'united+states', display: 'United States' },
   ];
 
   gotClicked(event: any, item: Country): void {

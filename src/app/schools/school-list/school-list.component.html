@@ -10,15 +10,13 @@
     <tr>
       <th class="college-header" scope="col" (click)="sortTable($event)">
         College
-        <i *ngIf="ascending" class="bi bi-sort-alpha-down"></i>
-        <i *ngIf="!ascending" class="bi bi-sort-alpha-up"></i>
+        <i *ngIf="showSort" class="bi bi-sort-alpha-down"></i>
+        <i *ngIf="!showSort" class="bi bi-sort-alpha-up"></i>
       </th>
       <th scope="col">Website</th>
     </tr>
   </thead>
   <tbody>
-    <!-- <tr *ngFor="let item of colleges$ | async"> -->
-    <!-- <tr *ngFor="let item of colleges$ | async | orderByPipe: 'name'"> -->
     <tr
       *ngFor="let item of colleges$ | async; let index = index"
       (click)="gotClicked(index, item)"

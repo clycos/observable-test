@@ -20,7 +20,7 @@ export class SchoolListComponent implements OnInit, OnChanges {
 
   colleges$!: Observable<School[]>;
   selectedRowIndex: number = -1;
-  ascending: boolean = true;
+  showSort: boolean = true;
   tableSmall: boolean = false;
   tableSize: string = 'shrink';
 
@@ -32,6 +32,8 @@ export class SchoolListComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.getColleges();
+    this.showSort = true;
+    this.selectedRowIndex = -1;
   }
 
   sortBy(a: School, b: School): number {
@@ -114,9 +116,9 @@ export class SchoolListComponent implements OnInit, OnChanges {
   }
 
   sortTable(ev: Event): void {
-    const th: HTMLTableElement = <HTMLTableElement>ev.currentTarget;
-    console.log('th', th);
+    this.showSort = !this.showSort;
 
+    const th: HTMLTableElement = <HTMLTableElement>ev.currentTarget;
     const table: HTMLTableElement = th.closest('table') as HTMLTableElement;
     const thIndex: number = Array.from(th.parentElement!.children).indexOf(th);
     const ascending: boolean = (th.dataset as DOMStringMap)['sort'] != 'asc';
@@ -131,6 +133,5 @@ export class SchoolListComponent implements OnInit, OnChanges {
     }
 
     th.dataset['sort'] = ascending ? 'asc' : 'desc';
-    this.ascending = ascending;
   }
 }
