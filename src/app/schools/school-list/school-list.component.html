@@ -10,8 +10,14 @@
     <tr>
       <th class="college-header" scope="col" (click)="sortTable($event)">
         College
-        <i *ngIf="showSort" class="bi bi-sort-alpha-down"></i>
-        <i *ngIf="!showSort" class="bi bi-sort-alpha-up"></i>
+        <i
+          *ngIf="showSort === 'desc' && country"
+          class="bi bi-sort-alpha-down"
+        ></i>
+        <i
+          *ngIf="showSort === 'asc' && country"
+          class="bi bi-sort-alpha-up"
+        ></i>
       </th>
       <th scope="col">Website</th>
     </tr>
