@@ -20,7 +20,7 @@ export class SchoolListComponent implements OnInit, OnChanges {
 
   colleges$!: Observable<School[]>;
   selectedRowIndex: number = -1;
-  showSort: string = 'desc';
+  showSort: string = 'asc';
   tableSmall: boolean = false;
   tableSize: string = 'shrink';
 
@@ -29,7 +29,7 @@ export class SchoolListComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.showSort = 'desc';
+    this.showSort = 'asc';
     this.getColleges();
     this.selectedRowIndex = -1;
   }
@@ -54,44 +54,20 @@ export class SchoolListComponent implements OnInit, OnChanges {
   // http://blog.jeremyfairbank.com/javascript/javascript-es7-function-bind-syntax/
 
   getColleges(): void {
-    // unmodified API
-    // this.colleges$ = this.schoolDataService.getColleges(this.country);
-
-    // order by(use JS), allow dups
-    // this.colleges$ = this.schoolDataService
-    //   .getColleges()
-    //   .pipe(map((colleges) => colleges.sort(this.sortBy)));
-
-    // order by(use JS) no dups(use orderByPipe)
-    // this.colleges$ = this.schoolDataService
-    //   .getColleges()
-    //   .pipe(
-    //     map((colleges) => [
-    //       ...new Map(colleges.map((m) => [m.name, m])).values(),
-    //     ])
-    //   );
-
-    // order by(use JS) no dups(use JS)
-    this.colleges$ = this.schoolDataService
-      .getColleges(this.country)
-      .pipe(
-        map((colleges) =>
-          [...new Map(colleges.map((m) => [m.name, m])).values()].sort(
-            this.sortBy
-          )
-        )
-      );
+    this.colleges$ = this.schoolDataService.getColleges(this.country).pipe(
+      map((colleges) =>
+        [...new Map(colleges.map((m) => [m.name, m])).values()]
+          .slice(0, 15) //slicing to limit results for testing
+          .sort(this.sortBy)
+      )
+    );
   }
 
   gotClicked(event: any, item: any): void {
     this.selectedRowIndex = event;
   }
 
-  sortTableRowsByColumn(
-    table: HTMLTableElement,
-    columnIndex: number,
-    ascending: boolean
-  ): void {
+  sortTableRowsByColumn(table: HTMLTableElement, columnIndex: number): void {
     const rows: any = Array.from(table.querySelectorAll(':scope > tbody > tr'));
 
     rows.sort(
@@ -117,18 +93,13 @@ export class SchoolListComponent implements OnInit, OnChanges {
     const th: HTMLTableElement = <HTMLTableElement>ev.currentTarget;
     const table: HTMLTableElement = th.closest('table') as HTMLTableElement;
     const thIndex: number = Array.from(th.parentElement!.children).indexOf(th);
-    const ascending: boolean = (th.dataset as DOMStringMap)['sort'] != 'asc';
 
-    this.sortTableRowsByColumn(table, thIndex, true);
+    this.sortTableRowsByColumn(table, thIndex);
 
     const allTh: NodeListOf<HTMLTableElement> = table.querySelectorAll(
       ':scope > thead > tr > th'
     );
-    for (let th2 of allTh) {
-      delete th2.dataset['sort'];
-    }
 
-    th.dataset['sort'] = ascending ? 'asc' : 'desc';
-    this.showSort = th.dataset['sort'];
+    this.showSort = this.showSort === 'asc' ? 'desc' : 'asc';
   }
 }

@@ -20,7 +20,7 @@ export class CountryListComponent implements OnInit {
     { name: 'united+states', display: 'United States' },
   ];
 
-  gotClicked(event: any, item: Country): void {
+  selectCountry(event: any, item: Country): void {
     this.country.emit(item);
     this.selectedRowIndex = event;
   }

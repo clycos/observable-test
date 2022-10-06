@@ -7,7 +7,7 @@
   <tbody>
     <tr
       *ngFor="let item of countries; let index = index"
-      (click)="gotClicked(index, item)"
+      (click)="selectCountry(index, item)"
       [ngClass]="{ 'table-success': selectedRowIndex === index }"
     >
       <td>
