@@ -1,3 +1,36 @@
+<table
+  id="collegeTable"
+  class="table table-striped table-bordered table-hover"
+  [ngClass]="{ 'table-sm': tableSmall === true }"
+>
+  <thead class="table-primary">
+    <tr>
+      <th class="college-header" scope="col" (click)="sortTable($event)">
+        College
+        <i
+          *ngIf="showSort === 'asc' && country"
+          class="bi bi-sort-alpha-down"
+        ></i>
+        <i
+          *ngIf="showSort === 'desc' && country"
+          class="bi bi-sort-alpha-up"
+        ></i>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let item of colleges$ | async; let index = index"
+      (click)="gotClicked(index, item)"
+      [ngClass]="{ 'table-success': selectedRowIndex === index }"
+    >
+      <td tabindex="0">
+        {{ item.name }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 <!-- <button type="button" class="btn btn-primary" (click)="setTableSmall()">
   {{ tableSize }}
 </button> -->
@@ -43,36 +76,3 @@
     </tr>
   </tbody>
 </table> -->
-
-<table
-  id="collegeTable"
-  class="table table-striped table-bordered table-hover"
-  [ngClass]="{ 'table-sm': tableSmall === true }"
->
-  <thead class="table-primary">
-    <tr>
-      <th class="college-header" scope="col" (click)="sortTable($event)">
-        College
-        <i
-          *ngIf="showSort === 'asc' && country"
-          class="bi bi-sort-alpha-down"
-        ></i>
-        <i
-          *ngIf="showSort === 'desc' && country"
-          class="bi bi-sort-alpha-up"
-        ></i>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr
-      *ngFor="let item of colleges$ | async; let index = index"
-      (click)="gotClicked(index, item)"
-      [ngClass]="{ 'table-success': selectedRowIndex === index }"
-    >
-      <td tabindex="0">
-        {{ item.name }}
-      </td>
-    </tr>
-  </tbody>
-</table>
