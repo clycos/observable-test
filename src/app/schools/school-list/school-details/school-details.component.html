@@ -1,0 +1,28 @@
+<table id="detailTable" class="table table-striped table-bordered table-hover">
+  <thead class="table-primary">
+    <tr>
+      <th class="college-header" scope="col">College</th>
+      <th class="college-header" scope="col">Country</th>
+      <th class="college-header" scope="col">State/Province</th>
+      <th class="college-header" scope="col">Website</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td tabindex="0">
+        {{ schoolDetail.name }}
+      </td>
+      <td tabindex="0">
+        {{ schoolDetail.country }} ({{ schoolDetail.alpha_two_code }})
+      </td>
+      <td tabindex="0">
+        {{ schoolDetail.state_province }}
+      </td>
+      <td tabindex="0">
+        <a href="{{ schoolDetail.web_pages[0] }}" target="_blank">{{
+          schoolDetail.web_pages[0]
+        }}</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
