@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Country } from './country-list/country';
+import { School } from './school-list/school-list';
 
 @Component({
   selector: 'app-schools',
@@ -7,10 +8,15 @@ import { Country } from './country-list/country';
   styleUrls: ['./schools.component.css'],
 })
 export class SchoolsComponent {
-  country!: Country;
+  schoolsCountry!: Country;
+  schoolsDetail!: School;
   constructor() {}
 
   getCountry(country: Country): void {
-    this.country = country;
+    this.schoolsCountry = country;
+  }
+
+  setSchool(school: School): void {
+    this.schoolsDetail = school;
   }
 }

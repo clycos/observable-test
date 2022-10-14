@@ -5,6 +5,8 @@ import {
   OnDestroy,
   Input,
   SimpleChanges,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { SchoolListService } from './school-list.service';
 import { School } from './school-list';
@@ -17,7 +19,8 @@ import { Country } from '../country-list/country';
   styleUrls: ['./school-list.component.css'],
 })
 export class SchoolListComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() country!: Country;
+  @Input() schoolListCountry!: Country;
+  @Output() schoolListSchool = new EventEmitter<School>();
 
   colleges$!: Observable<School[]>;
   selectedRowIndex: number = -1;
@@ -36,13 +39,13 @@ export class SchoolListComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.schoolListService.getColleges(this.country);
+    this.schoolListService.getColleges(this.schoolListCountry);
   }
 
   sortBy(a: School, b: School): number {
     let x: number = 0;
-    if (a.name < b.name) x = -1;
-    if (a.name > b.name) x = 1;
+    if (a.name! < b.name!) x = -1;
+    if (a.name! > b.name!) x = 1;
     return x;
   }
 
@@ -59,19 +62,20 @@ export class SchoolListComponent implements OnInit, OnChanges, OnDestroy {
   // http://blog.jeremyfairbank.com/javascript/javascript-es7-function-bind-syntax/
 
   getColleges(): void {
-    this.colleges$ = this.schoolListService.getColleges(this.country).pipe(
-      map((colleges) =>
-        [...new Map(colleges.map((m) => [m.name, m])).values()]
-          .slice(0, 15) //slicing to limit results for testing
-          .sort(this.sortBy)
-      )
-    );
+    this.colleges$ = this.schoolListService
+      .getColleges(this.schoolListCountry)
+      .pipe(
+        map((colleges) =>
+          [...new Map(colleges.map((m) => [m.name, m])).values()]
+            .slice(0, 15) //slicing to limit results for testing
+            .sort(this.sortBy)
+        )
+      );
   }
 
-  gotClicked(event: any, item: any): void {
-    console.log('item', item);
-
-    this.selectedRowIndex = event;
+  clickEvent(index: number, school: School): void {
+    this.schoolListSchool.emit(school);
+    this.selectedRowIndex = index;
   }
 
   sortTableRowsByColumn(table: HTMLTableElement, columnIndex: number): void {

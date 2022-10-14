@@ -17,12 +17,12 @@ import { Observable } from 'rxjs';
 export class CountryListComponent implements OnInit, OnDestroy {
   countries$!: Observable<Country[]>;
   selectedRowIndex: number = -1;
-  @Output() country = new EventEmitter<Country>();
+  @Output() countryListCountry = new EventEmitter<Country>();
 
   constructor(private countryListService: CountryListService) {}
 
   selectCountry(index: number, item: Country, event: Event): void {
-    this.country.emit(item);
+    this.countryListCountry.emit(item);
     this.selectedRowIndex = index;
   }
 

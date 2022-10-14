@@ -8,11 +8,11 @@
       <th class="college-header" scope="col" (click)="sortTable($event)">
         College
         <i
-          *ngIf="showSort === 'asc' && country"
+          *ngIf="showSort === 'asc' && schoolListCountry"
           class="bi bi-sort-alpha-down"
         ></i>
         <i
-          *ngIf="showSort === 'desc' && country"
+          *ngIf="showSort === 'desc' && schoolListCountry"
           class="bi bi-sort-alpha-up"
         ></i>
       </th>
@@ -20,12 +20,12 @@
   </thead>
   <tbody>
     <tr
-      *ngFor="let item of colleges$ | async; let index = index"
-      (click)="gotClicked(index, item)"
+      *ngFor="let college of colleges$ | async; let index = index"
+      (click)="clickEvent(index, college)"
       [ngClass]="{ 'table-success': selectedRowIndex === index }"
     >
       <td tabindex="0">
-        {{ item.name }}
+        {{ college.name }}
       </td>
     </tr>
   </tbody>
@@ -58,20 +58,20 @@
   </thead>
   <tbody>
     <tr
-      *ngFor="let item of colleges$ | async; let index = index"
-      (click)="gotClicked(index, item)"
+      *ngFor="let college of colleges$ | async; let index = index"
+      (click)="clickEvent(index, college)"
       [ngClass]="{ 'table-success': selectedRowIndex === index }"
     >
       <td>
-        {{ item.name }}
+        {{ college.name }}
       </td>
       <td>
-        <a href="{{ item.web_pages[0] }}" target="_blank">{{
-          item.web_pages[0]
+        <a href="{{ college.web_pages[0] }}" target="_blank">{{
+          college.web_pages[0]
         }}</a>
       </td>
       <td>
-        {{ item.alpha_two_code }}
+        {{ college.alpha_two_code }}
       </td>
     </tr>
   </tbody>
