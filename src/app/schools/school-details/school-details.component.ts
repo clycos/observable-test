@@ -1,6 +1,6 @@
 import { useAnimation } from '@angular/animations';
 import { Component } from '@angular/core';
-import { School } from '../school-list';
+import { School } from '../school-list/school-list';
 
 @Component({
   selector: 'app-school-details',

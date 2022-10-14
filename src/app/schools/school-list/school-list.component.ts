@@ -69,7 +69,6 @@ export class SchoolListComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   gotClicked(event: any, item: any): void {
-    console.log('event', event);
     console.log('item', item);
 
     this.selectedRowIndex = event;
