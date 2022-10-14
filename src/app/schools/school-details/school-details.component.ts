@@ -18,6 +18,8 @@ export class SchoolDetailsComponent implements OnInit, OnChanges {
 
   constructor() {}
 
+  //https://stackoverflow.com/questions/50205502/angular-cannot-read-property-of-undefined-in-component-form
+
   ngOnInit(): void {
     this.schoolDetail = {
       alpha_two_code: '',
@@ -31,6 +33,5 @@ export class SchoolDetailsComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.schoolDetail = this.schoolDetailSchool;
-    console.log('school detail blah', this.schoolDetail);
   }
 }
