@@ -5,7 +5,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { School } from '../school-list/school-list';
+import { School } from '../school-list';
 
 @Component({
   selector: 'app-school-details',

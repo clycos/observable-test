@@ -11,7 +11,7 @@ import { CountryListComponent } from './schools/country-list/country-list.compon
 import { SchoolListComponent } from './schools/school-list/school-list.component';
 import { SchoolsComponent } from './schools/schools.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SchoolDetailsComponent } from './schools/school-details/school-details.component';
+import { SchoolDetailsComponent } from './schools/school-list/school-details/school-details.component';
 
 @NgModule({
   declarations: [
