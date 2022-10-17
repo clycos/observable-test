@@ -5,7 +5,7 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { Country } from './country';
+import { Country } from 'src/app/shared/dtos';
 import { CountryListService } from './country-list.service';
 import { Observable } from 'rxjs';
 

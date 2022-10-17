@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Country } from './country';
+import { Country } from 'src/app/shared/dtos';
 
 @Injectable({
   providedIn: 'root',

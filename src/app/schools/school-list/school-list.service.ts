@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, EMPTY } from 'rxjs';
-import { School } from './school-list';
-import { Country } from '../country-list/country';
+import { Country, School } from 'src/app/shared/dtos';
 
 @Injectable({
   providedIn: 'root',

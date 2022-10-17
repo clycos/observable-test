@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Country } from './country-list/country';
-import { School } from './school-list/school-list';
+import { Country, School } from '../shared/dtos';
 
 @Component({
   selector: 'app-schools',

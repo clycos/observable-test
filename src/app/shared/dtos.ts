@@ -6,3 +6,8 @@ export interface School {
   web_pages: string[];
   country: string;
 }
+
+export interface Country {
+  name: string;
+  display: string;
+}

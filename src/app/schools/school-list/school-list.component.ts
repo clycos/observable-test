@@ -9,9 +9,8 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { SchoolListService } from './school-list.service';
-import { School } from './school-list';
 import { Observable, map } from 'rxjs';
-import { Country } from '../country-list/country';
+import { Country, School } from 'src/app/shared/dtos';
 
 @Component({
   selector: 'app-school-list',

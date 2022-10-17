@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { School } from '../school-list';
+import { School } from 'src/app/shared/dtos';
 
 @Component({
   selector: 'app-school-details',
