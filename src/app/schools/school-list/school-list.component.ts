@@ -32,7 +32,21 @@ export class SchoolListComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {}
 
+  initializeSchool(): School {
+    return {
+      alpha_two_code: '',
+      country: '',
+      domains: [''],
+      name: '',
+      state_province: '',
+      web_pages: [''],
+    };
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
+    this.schoolListSchool.emit(this.initializeSchool()); //initializes and sets school to null on country changes
+    console.log('country changes');
+
     this.showSort = 'asc';
     this.getColleges();
     this.selectedRowIndex = -1;
