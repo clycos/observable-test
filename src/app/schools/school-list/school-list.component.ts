@@ -80,7 +80,7 @@ export class SchoolListComponent implements OnInit, OnChanges, OnDestroy {
       .pipe(
         map((colleges) =>
           [...new Map(colleges.map((m) => [m.name, m])).values()]
-            .slice(0, 15) //slicing to limit results for testing
+            .slice(0, 30) //slicing to limit results for testing
             .sort(this.sortBy)
         )
       );
