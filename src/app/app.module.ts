@@ -12,6 +12,7 @@ import { SchoolListComponent } from './schools/school-list/school-list.component
 import { SchoolsComponent } from './schools/schools.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SchoolDetailsComponent } from './schools/school-list/school-details/school-details.component';
+import { SessionModalComponent } from './shared/session-modal/session-modal.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SchoolDetailsComponent } from './schools/school-list/school-details/sch
     SchoolListComponent,
     SchoolsComponent,
     SchoolDetailsComponent,
+    SessionModalComponent,
   ],
   imports: [
     BrowserModule,
