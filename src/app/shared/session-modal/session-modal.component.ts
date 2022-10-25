@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject, timeout } from 'rxjs';
 
 @Component({
   selector: 'app-session-modal',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./session-modal.component.css'],
 })
 export class SessionModalComponent implements OnInit {
+  private destroyed$ = new Subject();
+
   constructor() {}
   displayStyle: string = 'block';
   runTime!: number;
